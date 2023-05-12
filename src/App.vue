@@ -1,22 +1,39 @@
 <template>
   <div>
-    <ul>
-      <li v-for="movie in movies.results" :key="movie.id">
-        {{ movie.original_title }}
-      </li>
-    </ul>
-  </div>
-  
+      <a v-for="movie in movies.results" :key="movie.id">
+        <img :src="getImageUrl(movie.poster_path)" alt="Movie Image" />
+      </a>
+  </div> 
 </template>
 
-<script>
+<script lang="ts">
+
+interface Movie {
+  id: number;
+  original_title: string;
+  poster_path: string;
+  // Add other properties of a movie
+}
+
+const imageUrl = 'https://image.tmdb.org/t/p/w342'
+
 export default {
   // Data is a reactive. Similar to Ref, but allows objects to be returned
   data() {
     return {
-      movies: [],
+      movies: {
+        results:[] as Movie[],
+      },
     };
   },
+
+  methods: {
+    getImageUrl(path: string) {
+      // Return the complete image URL based on the path
+      return `${imageUrl}/${path}`;
+    },
+  },
+
   // Lifecycle hook. Akin to a useEffect hook. 
   async mounted() {
     try {
