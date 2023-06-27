@@ -8,7 +8,7 @@ export class MovieService{
 
     async fetchMovies( category:string ) {
         try{
-            const url = `${this.baseUrl}/${category}/?`
+            const url = `${this.baseUrl}/${category}/?api_key=194f12722b89b1e87549305ac196085c`
             const response = await fetch(url);
             const data = response.json();
             return data;

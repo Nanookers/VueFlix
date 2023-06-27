@@ -12,13 +12,17 @@
           </div>  
           <p class="overview">{{ movie?.overview }}</p>
         </div>
+        <div class="buttonLayout">
+          <button @click="addMovieToWatchlist(`hi`)">Click Me!</button>
+        </div>
       </div>
     </div>
   </template>
 
   <script lang="ts">
   import { SingleMovie } from '../models/SingleMovie';
-  import { MovieDetail } from '../types/type';
+  import { AccountDetails } from '../models/GetAccountDetails';
+  import { MovieDetail, Account } from '../types/type';
 
   export default {
     props: ['movieId'],
@@ -26,6 +30,7 @@
       return {
         // Can hold a null value or MovieDetail
         movie: null as MovieDetail | null,
+        account: null as Account | null
       };
     },
     methods: {
@@ -36,16 +41,24 @@
         getPoster(path: string) {
           const imageUrl: string = 'https://image.tmdb.org/t/p/w185';
           return `${imageUrl}/${path}`;
+        },
+        addMovieToWatchlist( user: string ){
+          console.log(user);  
         }
       },
     async mounted() {
-      console.log('Received movieId:', this.movieId);
       const grabSingle = new SingleMovie();
-      const movieData = await grabSingle.fetchMovie(this.movieId);
-      console.log(movieData);
+      const grabAccount = new AccountDetails();
+      
+      const [ movieData, accountData] = await Promise.all([
+        grabSingle.fetchMovie(this.movieId),
+        grabAccount.fetchAccountDetails(),
+      ])
+      
+      console.log(accountData);
       this.movie = movieData;
-  ;
-    },
+      this.account = accountData;
+    }
   };
   </script>
 

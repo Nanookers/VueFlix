@@ -50,3 +50,8 @@ export interface MovieDetail {
 	vote_average: number;
 	vote_count: number;
   }
+
+  export interface Account{
+	id: number;
+	username: string;
+  }
