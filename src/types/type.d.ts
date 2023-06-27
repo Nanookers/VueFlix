@@ -54,4 +54,5 @@ export interface MovieDetail {
   export interface Account{
 	id: number;
 	username: string;
+
   }

@@ -12,6 +12,7 @@
           </div>  
           <p class="overview">{{ movie?.overview }}</p>
         </div>
+
         <div class="buttonLayout">
           <button @click="addMovieToWatchlist(`hi`)">Click Me!</button>
         </div>
@@ -21,8 +22,11 @@
 
   <script lang="ts">
   import { SingleMovie } from '../models/SingleMovie';
+
   import { AccountDetails } from '../models/GetAccountDetails';
   import { MovieDetail, Account } from '../types/type';
+
+
 
   export default {
     props: ['movieId'],
@@ -30,7 +34,8 @@
       return {
         // Can hold a null value or MovieDetail
         movie: null as MovieDetail | null,
-        account: null as Account | null
+
+        account: null as Account | null,
       };
     },
     methods: {
